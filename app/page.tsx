@@ -29,9 +29,9 @@ export default function Home() {
         <div className="max-w-4xl mx-auto px-6 py-4 flex justify-between items-center">
           <span className="font-mono-custom text-sm text-cyan-300">wildan.dev</span>
           <div className="flex gap-6 text-sm text-gray-400 font-mono-custom">
-            <a href="#about" className="hover:text-cyan-300 transition-colors">tentang</a>
-            <a href="#projects" className="hover:text-cyan-300 transition-colors">project</a>
-            <a href="#contact" className="hover:text-cyan-300 transition-colors">kontak</a>
+            <a href="#about" className="hover:text-cyan-300 transition-colors">Tentang  |</a>
+            <a href="#projects" className="hover:text-cyan-300 transition-colors">Project |</a>
+            <a href="#contact" className="hover:text-cyan-300 transition-colors">Kontak</a>
           </div>
         </div>
       </nav>
