@@ -17,22 +17,28 @@ const PORTFOLIO_DATA = {
   ],
   projects: [
     {
-      title: "Cacao Fruit Sorting System",
-      desc: "Real-time detection & sorting kondisi fisik buah kakao (baik/buruk) menggunakan arsitektur YOLOv11n yang di-deploy pada Raspberry Pi 5.",
-      stats: ["Precision 98.7%", "Recall 99%", "mAP50 99.4%"],
-      tags: ["YOLOv11n", "Raspberry Pi 5", "Computer Vision", "Python"],
-    },
-    {
-      title: "Smart Waste Management Prototype",
-      desc: "Sistem purwarupa pengelolaan sampah pintar menggunakan computer vision untuk mendeteksi, menghitung, dan mengklasifikasikan jenis objek secara otomatis.",
-      stats: ["Custom Dataset", "Real-time Processing"],
-      tags: ["Python", "YOLO", "Machine Learning", "Hardware Integration"],
+      title: "Cacao Fruit Sorting System (Tugas Akhir)",
+      desc: "Mengumpulkan Data, Melatih Data Menggunakan Platform Roboflow dan Mengimplementasikan Algoritma YOLOv11n pada Raspberry Pi 5 untuk Deteksi dan Sortasi Buah Kakao Berdasarkan Kondisi Fisiknya yaitu Baik dan Buruk.",
+      stats: ["Precision 0.9869", "Recall 0.9907", "mAP50 0.9941", "mAP50-95 0.9501"],
+      tags: ["YOLOv11n", "Python", "Raspberry Pi", "Object Detection", "Computer Vision", "Embedded System", "Roboflow"],
     },
     {
       title: "Regional Dam Telemetry & Control",
-      desc: "Perancangan sistem monitoring dan kendali jarak jauh untuk bendungan daerah guna mengatasi kendala geografis antara lokasi bendungan dan pos kendali utama.",
-      stats: ["Remote Access", "Low Latency"],
-      tags: ["IoT", "ESP32", "Telemetry", "HMI"],
+      desc: "Berkontribusi dalam Perancangan Sistem Kontrol dan Monitoring Pintu Air Bendungan Daerah guna Mengatasi Kendala Geografis antara Lokasi Bendungan dan Pos Kendali Utama.",
+      stats: [],
+      tags: ["Panel Wiring", "Telemetry System", "Water Level Sensor Instalation", "Industrial Automation", "Instrumentation"],
+    },
+    {
+      title: "Industrial HMI Interface Redesign",
+      desc: "Berkontribusi dalam Redesain Human Machine Interface (HMI) pada Sistem Kontrol dan Monitoring Mesin Filling Thinner guna Meningkatkan Kemudahan Monitoring, Keterbacaan Informasi, dan Efisiensi Pengoperasian oleh Operator di Salah Satu Pabrik Thinner di Kabupaten Gresik, Jawa Timur.",
+      stats: [],
+      tags: ["Human Machine Interface (HMI)", "Industrial Automation", "Industrial Control System"],
+    },
+    {
+      title: "IoT-Based Smart Egg Incubator Prototype",
+      desc: "Berkontribusi dalam Perancangan dan Pengembangan Prototype Inkubator Penetas Telur Ayam Berbasis Internet of Things (IoT) dengan Fitur Monitoring dan Kontrol Suhu serta Kelembaban Secara Real-Time melalui Aplikasi Smartphone guna Menjaga Kondisi Inkubasi Tetap Optimal Selama Proses Penetasan.",
+      stats: [],
+      tags: ["Internet of Things (IoT)", "Embedded Systems", "Real-Time Monitoring", "Smartphone Control", "Sensor Integration"],
     }
   ],
   skills: [
@@ -137,13 +143,16 @@ export default function Home() {
                   </p>
                 </div>
                 <div>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {p.stats.map((s) => (
-                      <span key={s} className="font-mono text-[10px] uppercase tracking-wider px-2 py-1 rounded bg-fuchsia-500/10 text-fuchsia-300 border border-fuchsia-500/20">
-                        {s}
-                      </span>
-                    ))}
-                  </div>
+                  {/* Conditional Rendering untuk Stats agar layout tetap rapat jika stats kosong */}
+                  {p.stats && p.stats.length > 0 && (
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {p.stats.map((s) => (
+                        <span key={s} className="font-mono text-[10px] uppercase tracking-wider px-2 py-1 rounded bg-fuchsia-500/10 text-fuchsia-300 border border-fuchsia-500/20">
+                          {s}
+                        </span>
+                      ))}
+                    </div>
+                  )}
                   <div className="flex flex-wrap gap-2 pt-4 border-t border-white/5">
                     {p.tags.map((t) => (
                       <span key={t} className="text-xs text-gray-500 font-mono">#{t}</span>
@@ -192,7 +201,6 @@ export default function Home() {
   );
 }
 
-// Sub-komponen untuk header section agar lebih rapi
 function SectionHeader({ number, title, className = "" }: { number: string, title: string, className?: string }) {
   return (
     <div className={`flex items-center gap-4 mb-8 ${className}`}>
