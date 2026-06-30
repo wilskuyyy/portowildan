@@ -1,167 +1,207 @@
-export default function Home() {
-  const projects = [
+import React from 'react';
+
+// --- DATA SCULPTING (Pemisahan data agar komponen lebih compact) ---
+const PORTFOLIO_DATA = {
+  hero: {
+    role: "// MECHATRONICS & AI ENGINEER",
+    name: "Wildan Ibransyah",
+    tagline: "Fresh graduate D-IV Teknologi Rekayasa Mekatronika — persimpangan antara Industrial Automation, IoT Engineering, dan Computer Vision.",
+  },
+  experience: [
+    {
+      role: "Automation Engineering Intern",
+      company: "PT Mokko Otomasi Indonesia",
+      duration: "3 Bulan 20 Hari",
+      desc: "Pengembangan dan integrasi sistem kendali otomasi industri menggunakan PLC Mitsubishi FX5U. Terlibat langsung dalam perancangan sistem dan penyusunan laporan magang teknis.",
+    }
+  ],
+  projects: [
     {
       title: "Cacao Fruit Sorting System",
-      desc: "Real-time detection & sorting kondisi fisik buah kakao (baik/buruk) pakai YOLOv11n di Raspberry Pi 5.",
+      desc: "Real-time detection & sorting kondisi fisik buah kakao (baik/buruk) menggunakan arsitektur YOLOv11n yang di-deploy pada Raspberry Pi 5.",
       stats: ["Precision 98.7%", "Recall 99%", "mAP50 99.4%"],
       tags: ["YOLOv11n", "Raspberry Pi 5", "Computer Vision", "Python"],
     },
-  ];
+    {
+      title: "Smart Waste Management Prototype",
+      desc: "Sistem purwarupa pengelolaan sampah pintar menggunakan computer vision untuk mendeteksi, menghitung, dan mengklasifikasikan jenis objek secara otomatis.",
+      stats: ["Custom Dataset", "Real-time Processing"],
+      tags: ["Python", "YOLO", "Machine Learning", "Hardware Integration"],
+    },
+    {
+      title: "Regional Dam Telemetry & Control",
+      desc: "Perancangan sistem monitoring dan kendali jarak jauh untuk bendungan daerah guna mengatasi kendala geografis antara lokasi bendungan dan pos kendali utama.",
+      stats: ["Remote Access", "Low Latency"],
+      tags: ["IoT", "ESP32", "Telemetry", "HMI"],
+    }
+  ],
+  skills: [
+    "Computer Vision (YOLO)", "Python", "PLC Mitsubishi FX5U", 
+    "Raspberry Pi 5", "ESP32", "Industrial Automation", 
+    "IoT Systems", "HMI Design", "Panel Wiring"
+  ],
+  links: [
+    { label: "Email", url: "mailto:wildanibrans@gmail.com" },
+    { label: "LinkedIn", url: "https://www.linkedin.com/in/wildanibransyah/" },
+    { label: "GitHub", url: "https://github.com/wilskuyyy" },
+  ]
+};
 
-  const skills = [
-    "Computer Vision (YOLO)",
-    "Raspberry Pi",
-    "ESP32",
-    "PLC Programming",
-    "IoT Systems",
-    "HMI",
-    "Industrial Automation",
-    "Python",
-  ];
-
+export default function Home() {
   return (
-    <main className="min-h-screen bg-black text-gray-100">
-      <div className="fixed top-0 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-[120px] -z-10" />
-      <div className="fixed bottom-0 right-1/4 w-96 h-96 bg-fuchsia-500/10 rounded-full blur-[120px] -z-10" />
+    <main className="relative min-h-screen bg-[#050505] text-gray-200 selection:bg-cyan-500/30 font-sans overflow-hidden">
+      {/* BACKGROUND ELEMENTS */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        {/* Grid Pattern */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
+        {/* Ambient Glows */}
+        <div className="absolute top-[-10%] left-[-10%] w-[40vw] h-[40vw] bg-cyan-600/10 rounded-full blur-[120px]" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[40vw] h-[40vw] bg-fuchsia-600/10 rounded-full blur-[120px]" />
+      </div>
 
-      {/* Sticky nav */}
-      <nav className="sticky top-0 z-50 backdrop-blur-md bg-black/70 border-b border-white/10">
-        <div className="max-w-4xl mx-auto px-6 py-4 flex justify-between items-center">
-          <span className="font-mono-custom text-sm text-cyan-300">wildan.dev</span>
-          <div className="flex gap-6 text-sm text-gray-400 font-mono-custom">
-            <a href="#about" className="hover:text-cyan-300 transition-colors">Tentang  |</a>
-            <a href="#projects" className="hover:text-cyan-300 transition-colors">Project |</a>
-            <a href="#contact" className="hover:text-cyan-300 transition-colors">Kontak</a>
+      {/* NAVBAR */}
+      <nav className="fixed top-0 w-full z-50 backdrop-blur-xl bg-[#050505]/60 border-b border-white/5 transition-all">
+        <div className="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
+          <span className="font-mono text-sm text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-cyan-200 font-semibold tracking-wider">
+            WIL.DEV
+          </span>
+          <div className="hidden md:flex gap-8 text-xs font-mono tracking-widest text-gray-400">
+            {['Tentang', 'Pengalaman', 'Project', 'Kontak'].map((item) => (
+              <a key={item} href={`#${item.toLowerCase()}`} className="hover:text-cyan-300 transition-colors">
+                {item}
+              </a>
+            ))}
           </div>
         </div>
       </nav>
 
-      {/* Hero */}
-      <section className="max-w-4xl mx-auto px-6 pt-20 pb-16 text-center">
-        <p className="font-mono-custom text-cyan-400 text-sm tracking-widest mb-3 glow-pulse">
-          {"// MECHATRONICS ENGINEER"}
-        </p>
-        <h1 className="text-4xl md:text-6xl font-bold mb-3 bg-gradient-to-r from-cyan-300 via-white to-fuchsia-400 bg-clip-text text-transparent">
-          Wildan Ibransyah
-        </h1>
-        <p className="text-gray-400 max-w-xl mx-auto text-base mb-6">
-          Fresh graduate D-IV Teknologi Rekayasa Mekatronika — fokus pada Industrial Automation, IoT Engineering, dan Computer Vision.
-        </p>
-        <div className="flex justify-center gap-3">
-          <a
-            href="#contact"
-            className="px-6 py-2.5 border border-cyan-400 text-cyan-300 rounded-full hover:bg-cyan-400 hover:text-black transition-all duration-300 text-sm shadow-[0_0_20px_rgba(34,211,238,0.4)]"
-          >
-            Hubungi Saya
-          </a>
-          <a
-            href="#projects"
-            className="px-6 py-2.5 border border-white/15 text-gray-300 rounded-full hover:border-white/40 transition-all duration-300 text-sm"
-          >
-            Lihat Project
-          </a>
-        </div>
-      </section>
-
-      {/* About */}
-      <section id="about" className="max-w-4xl mx-auto px-6 py-12 border-t border-white/10">
-        <h2 className="font-mono-custom text-fuchsia-400 text-xs tracking-widest mb-3">
-          {"01 / TENTANG"}
-        </h2>
-        <p className="text-gray-300 leading-relaxed">
-          Lulusan Politeknik Negeri Jember dengan GPA 3.72, terbiasa kerja di persimpangan hardware dan software — mulai dari panel wiring, sensor, HMI, sampai model computer vision yang jalan real-time di embedded device.
-        </p>
-      </section>
-
-      {/* Projects */}
-      <section id="projects" className="max-w-4xl mx-auto px-6 py-12 border-t border-white/10">
-        <h2 className="font-mono-custom text-fuchsia-400 text-xs tracking-widest mb-5">
-          {"02 / PROJECT"}
-        </h2>
-        <div className="space-y-4">
-          {projects.map((p) => (
-            <div
-              key={p.title}
-              className="group p-5 rounded-xl border border-white/10 hover:border-cyan-400/50 transition-all duration-300 bg-white/5"
-            >
-              <h3 className="text-xl font-bold text-white mb-1.5 group-hover:text-cyan-300 transition-colors">
-                {p.title}
-              </h3>
-              <p className="text-gray-400 text-sm mb-3">{p.desc}</p>
-              <div className="flex flex-wrap gap-1.5 mb-2.5">
-                {p.stats.map((s) => (
-                  <span
-                    key={s}
-                    className="font-mono-custom text-xs px-2.5 py-1 rounded-full bg-cyan-400/10 text-cyan-300 border border-cyan-400/20"
-                  >
-                    {s}
-                  </span>
-                ))}
-              </div>
-              <div className="flex flex-wrap gap-2">
-                {p.tags.map((t) => (
-                  <span key={t} className="text-xs text-gray-500">#{t}</span>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Skills */}
-      <section className="max-w-4xl mx-auto px-6 py-12 border-t border-white/10">
-        <h2 className="font-mono-custom text-fuchsia-400 text-xs tracking-widest mb-5">
-          {"03 / SKILLS"}
-        </h2>
-        <div className="flex flex-wrap gap-2">
-          {skills.map((s) => (
-            <span
-              key={s}
-              className="px-3 py-1.5 text-sm rounded-full border border-white/10 text-gray-300 hover:border-fuchsia-400/50 hover:text-fuchsia-300 transition-all duration-300 cursor-default"
-            >
-              {s}
+      <div className="relative z-10 max-w-5xl mx-auto px-6 pt-32 pb-24 space-y-32">
+        
+        {/* HERO SECTION */}
+        <section className="flex flex-col items-start justify-center min-h-[60vh]">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 mb-6">
+            <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+            <span className="font-mono text-cyan-400 text-xs tracking-widest">
+              {PORTFOLIO_DATA.hero.role}
             </span>
-          ))}
-        </div>
-      </section>
+          </div>
+          <h1 className="text-5xl md:text-7xl font-extrabold mb-6 tracking-tight text-white drop-shadow-lg">
+            {PORTFOLIO_DATA.hero.name}
+          </h1>
+          <p className="text-gray-400 max-w-2xl text-lg md:text-xl leading-relaxed mb-10">
+            {PORTFOLIO_DATA.hero.tagline}
+          </p>
+          <div className="flex flex-wrap gap-4">
+            <a href="#kontak" className="px-8 py-3 bg-cyan-500/10 border border-cyan-400 text-cyan-300 rounded-lg hover:bg-cyan-400 hover:text-black transition-all duration-300 text-sm font-semibold shadow-[0_0_20px_rgba(34,211,238,0.2)] hover:shadow-[0_0_30px_rgba(34,211,238,0.6)]">
+              Hubungi Saya
+            </a>
+            <a href="#project" className="px-8 py-3 border border-white/10 text-gray-300 rounded-lg hover:border-white/30 hover:bg-white/5 transition-all duration-300 text-sm font-semibold">
+              Eksplorasi Project
+            </a>
+          </div>
+        </section>
 
-      {/* Contact */}
-      <section id="contact" className="max-w-4xl mx-auto px-6 py-16 border-t border-white/10 text-center">
-        <h2 className="font-mono-custom text-fuchsia-400 text-xs tracking-widest mb-3">
-          {"04 / KONTAK"}
-        </h2>
-        <h3 className="text-2xl md:text-3xl font-bold mb-6 text-white">
-          Mari terhubung
-        </h3>
-        <div className="flex flex-col sm:flex-row justify-center gap-3">
-          <a
-            href="mailto:wildanibrans@gmail.com"
-            className="px-5 py-2.5 text-sm rounded-full border border-white/10 hover:border-cyan-400 hover:text-cyan-300 transition-all duration-300"
-          >
-            Email
-          </a>
-          <a
-            href="https://www.linkedin.com/in/wildanibransyah/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-5 py-2.5 text-sm rounded-full border border-white/10 hover:border-cyan-400 hover:text-cyan-300 transition-all duration-300"
-          >
-            LinkedIn
-          </a>
-          <a
-            href="https://github.com/wilskuyyy"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-5 py-2.5 text-sm rounded-full border border-white/10 hover:border-cyan-400 hover:text-cyan-300 transition-all duration-300"
-          >
-            GitHub
-          </a>
-        </div>
-      </section>
+        {/* EXPERIENCE SECTION */}
+        <section id="pengalaman" className="scroll-mt-24">
+          <SectionHeader number="01" title="PENGALAMAN MAGANG & KERJA" />
+          <div className="grid gap-6">
+            {PORTFOLIO_DATA.experience.map((exp, idx) => (
+              <div key={idx} className="p-6 md:p-8 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-white/10 transition-colors">
+                <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-4 gap-2">
+                  <h3 className="text-xl font-bold text-white">{exp.role}</h3>
+                  <span className="font-mono text-xs text-cyan-400 bg-cyan-400/10 px-3 py-1 rounded-full">
+                    {exp.duration}
+                  </span>
+                </div>
+                <p className="text-fuchsia-300 text-sm font-mono mb-4">{exp.company}</p>
+                <p className="text-gray-400 leading-relaxed text-sm md:text-base">
+                  {exp.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
 
-      <footer className="text-center py-6 text-gray-600 text-xs font-mono-custom border-t border-white/10">
-        © 2026 Wildan Ibransyah
+        {/* PROJECTS SECTION */}
+        <section id="project" className="scroll-mt-24">
+          <SectionHeader number="02" title="PROJECT PILIHAN" />
+          <div className="grid md:grid-cols-2 gap-6">
+            {PORTFOLIO_DATA.projects.map((p) => (
+              <div key={p.title} className="group flex flex-col justify-between p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-cyan-500/30 hover:bg-white/[0.04] transition-all duration-500">
+                <div>
+                  <h3 className="text-xl font-bold text-white mb-3 group-hover:text-cyan-300 transition-colors">
+                    {p.title}
+                  </h3>
+                  <p className="text-gray-400 text-sm leading-relaxed mb-6">
+                    {p.desc}
+                  </p>
+                </div>
+                <div>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {p.stats.map((s) => (
+                      <span key={s} className="font-mono text-[10px] uppercase tracking-wider px-2 py-1 rounded bg-fuchsia-500/10 text-fuchsia-300 border border-fuchsia-500/20">
+                        {s}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="flex flex-wrap gap-2 pt-4 border-t border-white/5">
+                    {p.tags.map((t) => (
+                      <span key={t} className="text-xs text-gray-500 font-mono">#{t}</span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* SKILLS SECTION */}
+        <section id="tentang" className="scroll-mt-24">
+          <SectionHeader number="03" title="TEKNOLOGI & KEAHLIAN" />
+          <div className="flex flex-wrap gap-3">
+            {PORTFOLIO_DATA.skills.map((s) => (
+              <span key={s} className="px-4 py-2 text-sm rounded-lg bg-white/[0.03] border border-white/10 text-gray-300 hover:border-cyan-400/50 hover:text-cyan-300 transition-all duration-300 cursor-default">
+                {s}
+              </span>
+            ))}
+          </div>
+        </section>
+
+        {/* CONTACT SECTION */}
+        <section id="kontak" className="scroll-mt-24 text-center pb-12">
+          <SectionHeader number="04" title="KONTAK" className="justify-center" />
+          <h3 className="text-3xl md:text-5xl font-bold mb-8 text-white">
+            Mari Kolaborasi
+          </h3>
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            {PORTFOLIO_DATA.links.map((link) => (
+              <a key={link.label} href={link.url} target="_blank" rel="noopener noreferrer" 
+                 className="px-6 py-3 text-sm font-semibold rounded-lg bg-white/[0.03] border border-white/10 hover:border-cyan-400 hover:text-cyan-300 hover:-translate-y-1 transition-all duration-300">
+                {link.label}
+              </a>
+            ))}
+          </div>
+        </section>
+
+      </div>
+
+      <footer className="relative z-10 text-center py-8 text-gray-600 text-xs font-mono border-t border-white/5 bg-black/50">
+        © 2026 {PORTFOLIO_DATA.hero.name}. All rights reserved.
       </footer>
     </main>
+  );
+}
+
+// Sub-komponen untuk header section agar lebih rapi
+function SectionHeader({ number, title, className = "" }: { number: string, title: string, className?: string }) {
+  return (
+    <div className={`flex items-center gap-4 mb-8 ${className}`}>
+      <span className="font-mono text-cyan-500 text-sm">{number}</span>
+      <div className="h-px w-12 bg-white/10" />
+      <h2 className="font-mono text-gray-300 text-xs tracking-[0.2em] uppercase">
+        {title}
+      </h2>
+      <div className="h-px flex-grow max-w-[200px] bg-gradient-to-r from-white/10 to-transparent" />
+    </div>
   );
 }
