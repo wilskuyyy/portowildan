@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState, useRef } from "react";
+import Image from "next/image";
 
 export interface ProjectData {
   title: string;
@@ -24,7 +25,6 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
   const [isVisible, setIsVisible] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
 
-  // Mengatur aksesibilitas: Lock scroll, ESC key, & Focus Trap
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -35,8 +35,6 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
       document.addEventListener("keydown", handleKeyDown);
       setTimeout(() => setIsVisible(true), 10);
       setCurrentImage(0);
-      
-      // Auto-focus ke modal saat terbuka untuk screen reader
       modalRef.current?.focus();
     } else {
       document.body.style.overflow = "unset";
@@ -56,21 +54,19 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
 
   return (
     <div 
-      className={`fixed inset-0 z-100 flex items-center justify-center p-4 sm:p-6 transition-all duration-300 ${
+      className={`fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 transition-all duration-300 ${
         isVisible ? "opacity-100 backdrop-blur-sm" : "opacity-0 backdrop-blur-none"
       }`}
       role="dialog"
       aria-modal="true"
       aria-labelledby="modal-title"
     >
-      {/* Overlay Backdrop */}
       <div 
         className="absolute inset-0 bg-gray-900/60 transition-opacity" 
         onClick={onClose} 
         aria-label="Tutup modal"
       />
 
-      {/* Modal Content */}
       <div 
         ref={modalRef}
         tabIndex={-1}
@@ -78,7 +74,6 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
           isVisible ? "scale-100 translate-y-0" : "scale-95 translate-y-8"
         }`}
       >
-        {/* Header - Sticky */}
         <div className="flex justify-between items-start sm:items-center p-5 sm:p-6 border-b border-gray-100 bg-white/90 backdrop-blur-md z-10 sticky top-0">
           <div className="pr-4">
             <h3 id="modal-title" className="text-xl sm:text-2xl font-extrabold text-gray-900 leading-tight">
@@ -100,15 +95,18 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
           </button>
         </div>
 
-        {/* Body - Scrollable */}
         <div className="overflow-y-auto p-5 sm:p-8 space-y-8">
           
-          {/* Carousel Gambar */}
+          {/* Carousel Gambar Universal */}
           {project.images.length > 0 && (
-            <div className="relative aspect-video bg-gray-50 rounded-xl overflow-hidden group border border-gray-100">
-              <div className="w-full h-full flex items-center justify-center bg-gray-100 text-gray-400 font-medium text-sm">
-                [ Placeholder UI/Dokumentasi: {project.images[currentImage]} ]
-              </div>
+            <div className="relative w-full h-62.5 sm:h-87.5 md:h-112.5 bg-gray-100/50 rounded-xl overflow-hidden group border border-gray-100 flex items-center justify-center">
+              <Image
+                src={project.images[currentImage]}
+                alt={project.title}
+                fill
+                className="object-contain p-2 sm:p-4"
+                priority
+              />
               
               {project.images.length > 1 && (
                 <>
@@ -118,9 +116,9 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                   <button onClick={nextImage} className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center bg-white/90 backdrop-blur rounded-full text-gray-800 shadow-sm opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity hover:bg-white hover:scale-105" aria-label="Gambar selanjutnya">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M9 18l6-6-6-6"/></svg>
                   </button>
-                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
                     {project.images.map((_, idx) => (
-                      <div key={idx} className={`h-1.5 rounded-full transition-all duration-300 ${idx === currentImage ? "bg-gray-800 w-6" : "bg-gray-400/50 w-2"}`} />
+                      <div key={idx} className={`h-1.5 rounded-full transition-all duration-300 shadow-sm ${idx === currentImage ? "bg-primary w-6" : "bg-gray-300 w-2"}`} />
                     ))}
                   </div>
                 </>
@@ -128,7 +126,6 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
             </div>
           )}
 
-          {/* Deskripsi & Detail (Bento-style Split) */}
           <div className="grid md:grid-cols-3 gap-8">
             <div className="md:col-span-2 space-y-4">
               <h4 className="text-lg font-bold text-gray-900 flex items-center gap-2">

@@ -6,7 +6,7 @@ import ProjectModal, { ProjectData } from '@/components/ProjectModal';
 
 const PORTFOLIO_DATA = {
   hero: {
-    role: "MECHATRONICS & AI ENGINEER",
+    role: "MECHATRONICS & INDUSTRIAL AUTOMATION",
     name: "Wildan Ibransyah",
     tagline: "Fresh graduate D-IV Teknologi Rekayasa Mekatronika — bergerak di persimpangan antara Industrial Automation, IoT Engineering, dan Computer Vision.",
     location: "Jember, Indonesia",
@@ -44,6 +44,12 @@ const PORTFOLIO_DATA = {
       company: "PT Mokko Otomasi Indonesia",
       duration: "3 Bulan 20 Hari",
       desc: "Berpartisipasi dalam berbagai proyek IoT dan Industrial Automation meliputi survei lapangan, instalasi perangkat, inspeksi sistem, serta pengembangan antarmuka HMI untuk mendukung implementasi solusi otomasi industri.",
+    },
+    {
+      role: "Technician Intern",
+      company: "CV LAB PERSADA",
+      duration: "3 Bulan",
+      desc: "Bertanggung jawab atas perbaikan, pemeliharaan, dan instalasi perangkat keras serta perangkat lunak pada laptop, sekaligus menangani layanan lapangan seperti instalasi sistem CCTV sesuai kebutuhan klien.",
     }
   ],
   projects: [
@@ -52,8 +58,8 @@ const PORTFOLIO_DATA = {
       desc: "Mengimplementasikan Algoritma YOLOv11n pada Raspberry Pi 5 untuk Deteksi dan Sortasi Buah Kakao Berdasarkan Kondisi Fisiknya.",
       fullDesc: "Sistem cerdas ini dirancang sebagai Tugas Akhir untuk mengotomatisasi proses sortasi buah kakao. \n\nMenggunakan dataset yang dilatih melalui platform Roboflow, model YOLOv11n di-deploy ke dalam Raspberry Pi 5. Kamera secara real-time menangkap kondisi fisik kakao di atas konveyor, mengklasifikasikannya menjadi 'Baik' atau 'Buruk', dan memberikan sinyal aktuasi ke sistem mekanik untuk memisahkan hasil sortasi.",
       role: "AI & Embedded Systems Engineer",
-      year: "2024",
-      images: ["/demo1.jpg", "/demo2.jpg", "/demo3.jpg"], 
+      year: "2026",
+      images: ["/projects/democ1.jpg", "/projects/democ2.jpg", "/projects/democ3.jpg", "/projects/democ4.jpg", "/projects/democ5.jpg"], 
       githubUrl: "https://github.com/wilskuyyy", 
       stats: ["Precision 0.9869", "Recall 0.9907", "mAP50 0.9941", "mAP50-95 0.9501"],
       tags: ["YOLOv11n", "Python", "Raspberry Pi", "Object Detection", "Computer Vision", "Embedded System", "Roboflow"],
@@ -63,8 +69,8 @@ const PORTFOLIO_DATA = {
       desc: "Perancangan Sistem Kontrol dan Monitoring Pintu Air Bendungan Daerah guna Mengatasi Kendala Geografis.",
       fullDesc: "Berkontribusi dalam pengembangan sistem instrumentasi dan otomasi untuk infrastruktur vital daerah. Proyek ini menyelesaikan masalah jarak geografis antara bendungan fisik dan pos kendali operasi dengan menerapkan sistem telemetri berlatensi rendah untuk kontrol pintu air dan pemantauan sensor elevasi air secara presisi.",
       role: "Automation Engineer",
-      year: "2023",
-      images: ["/demo4.jpg", "/demo5.jpg"],
+      year: "2025",
+      images: ["/projects/democ6.jpg", "/projects/democ7.jpg", "/projects/democ8.jpg", "/projects/democ9.jpg", "/projects/democ10.jpg", "/projects/democ11.jpg"],
       stats: ["Remote Monitoring", "Sensor Integration"],
       tags: ["Panel Wiring", "Telemetry System", "Water Level Sensor Instalation", "Industrial Automation", "Instrumentation"],
     },
@@ -73,8 +79,8 @@ const PORTFOLIO_DATA = {
       desc: "Redesain HMI pada Sistem Kontrol Mesin Filling Thinner untuk Meningkatkan Keterbacaan dan Efisiensi Operator.",
       fullDesc: "Bekerja sama dengan salah satu pabrik thinner di Kabupaten Gresik, Jawa Timur, untuk merevitalisasi antarmuka Human Machine Interface (HMI) mereka. Fokus utama adalah pada prinsip UX/UI industri: meningkatkan kemudahan monitoring metrik krusial mesin filling, meminimalkan error operator, dan menyederhanakan alur navigasi parameter sistem kontrol.",
       role: "HMI Designer",
-      year: "2023",
-      images: ["/demo6.jpg"],
+      year: "2025",
+      images: ["/projects/democ12.jpg", "/projects/democ13.jpg"],
       stats: ["Interface Design", "Usability Improvement"],
       tags: ["Human Machine Interface (HMI)", "Industrial Automation", "Industrial Control System"],
     },
@@ -83,7 +89,7 @@ const PORTFOLIO_DATA = {
       desc: "Prototype Inkubator Penetas Telur Ayam IoT dengan Fitur Monitoring Suhu dan Kelembaban Secara Real-Time.",
       fullDesc: "Mengembangkan purwarupa sistem penetas telur mandiri berbasis Internet of Things. Sistem dilengkapi dengan integrasi sensor presisi tinggi untuk menjaga ekosistem ruang inkubasi tetap optimal. Parameter suhu dan kelembaban dapat dipantau dan di-override secara real-time dari mana saja menggunakan aplikasi smartphone.",
       role: "IoT Engineer",
-      year: "2022",
+      year: "2024",
       images: ["/demo7.jpg", "/demo8.jpg"],
       githubUrl: "https://github.com/wilskuyyy",
       stats: ["Real Time Monitoring", "Sensor Integration"],
@@ -91,9 +97,10 @@ const PORTFOLIO_DATA = {
     }
   ] as ProjectData[],
   skills: [
-    "Computer Vision (YOLO)", "Python", "PLC Mitsubishi FX5U", 
+    "Microsoft Office", "Computer Vision (YOLO)", "Python", "Basic PLC Programming", 
     "Raspberry Pi 5", "ESP32", "Industrial Automation", 
-    "IoT Systems", "HMI Design", "Panel Wiring"
+    "IoT Systems", "HMI Design", "Panel Wiring",
+    "Embedded System", "Sensor Integration"
   ],
   socials: {
     email: "wildanibrans@gmail.com",
@@ -122,6 +129,7 @@ export default function Home() {
   };
 
   const navLinks = [
+    { label: 'Home', href: '#home' },
     { label: 'Tentang', href: '#tentang' },
     { label: 'Pengalaman', href: '#pengalaman' },
     { label: 'Project', href: '#project' },
@@ -139,6 +147,7 @@ export default function Home() {
       
       {/* NAVBAR */}
       <nav className={`fixed top-0 w-full z-40 transition-all duration-300 ${scrolled ? 'bg-white/80 backdrop-blur-md border-b border-gray-100 shadow-sm py-3' : 'bg-white/0 py-5'}`}>
+        
         <div className="max-w-5xl mx-auto px-6 flex justify-between items-center">
           <a href="#" className="font-extrabold text-xl text-gray-900 tracking-tighter hover:text-primary transition-colors">
             wil.dev
@@ -186,7 +195,7 @@ export default function Home() {
       <div className="max-w-5xl mx-auto px-6 pt-32 pb-24 space-y-32 md:space-y-40">
         
         {/* HERO SECTION DENGAN FOTO */}
-        <section className="flex flex-col-reverse md:flex-row items-center md:items-start justify-between gap-12 min-h-[60vh]">
+        <section id="home" className="flex flex-col-reverse md:flex-row items-center md:items-start justify-between gap-12 min-h-[60vh]">
           
           {/* Teks Hero */}
           <div className="flex-1 flex flex-col items-center md:items-start text-center md:text-left">
@@ -211,9 +220,16 @@ export default function Home() {
 
             <div className="flex flex-wrap justify-center md:justify-start gap-4 w-full md:w-auto">
               <a href="#kontak" className="flex-1 md:flex-none justify-center inline-flex items-center gap-2 px-8 py-3.5 bg-primary text-white rounded-full hover:bg-blue-700 transition-all duration-300 text-sm font-semibold shadow-sm hover:shadow-md hover:-translate-y-0.5">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
                 Hubungi Saya
               </a>
-              <a href="/cv-wildan.pdf" target="_blank" className="flex-1 md:flex-none justify-center inline-flex items-center gap-2 px-8 py-3.5 bg-white border border-gray-200 text-gray-700 rounded-full hover:border-gray-300 hover:bg-gray-50 transition-all duration-300 text-sm font-semibold">
+              
+              <a href="#project" className="flex-1 min-w-35 md:flex-none justify-center inline-flex items-center gap-2 px-8 py-3.5 bg-white border border-primary text-gray-700 rounded-full hover:border-blue-700 hover:bg-blue-50 transition-all duration-300 text-sm font-semibold">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                Project Saya
+              </a>
+              
+              <a href="/cv-wildan.pdf" target="_blank" className="flex-1 md:flex-none justify-center inline-flex items-center gap-2 px-8 py-3.5 bg-white border border-primary text-gray-700 rounded-full hover:border-blue-700 hover:bg-blue-50 transition-all duration-300 text-sm font-semibold">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
                 Download CV
               </a>
