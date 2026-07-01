@@ -25,19 +25,19 @@ const PORTFOLIO_DATA = {
     {
       title: "Regional Dam Telemetry & Control",
       desc: "Berkontribusi dalam Perancangan Sistem Kontrol dan Monitoring Pintu Air Bendungan Daerah guna Mengatasi Kendala Geografis antara Lokasi Bendungan dan Pos Kendali Utama.",
-      stats: [],
+      stats: ["Remote Monitoring", "Sensor Integration"],
       tags: ["Panel Wiring", "Telemetry System", "Water Level Sensor Instalation", "Industrial Automation", "Instrumentation"],
     },
     {
       title: "Industrial HMI Interface Redesign",
       desc: "Berkontribusi dalam Redesain Human Machine Interface (HMI) pada Sistem Kontrol dan Monitoring Mesin Filling Thinner guna Meningkatkan Kemudahan Monitoring, Keterbacaan Informasi, dan Efisiensi Pengoperasian oleh Operator di Salah Satu Pabrik Thinner di Kabupaten Gresik, Jawa Timur.",
-      stats: [],
+      stats: ["Interface Design", "Usability Improvement"],
       tags: ["Human Machine Interface (HMI)", "Industrial Automation", "Industrial Control System"],
     },
     {
       title: "IoT-Based Smart Egg Incubator Prototype",
       desc: "Berkontribusi dalam Perancangan dan Pengembangan Prototype Inkubator Penetas Telur Ayam Berbasis Internet of Things (IoT) dengan Fitur Monitoring dan Kontrol Suhu serta Kelembaban Secara Real-Time melalui Aplikasi Smartphone guna Menjaga Kondisi Inkubasi Tetap Optimal Selama Proses Penetasan.",
-      stats: [],
+      stats: ["Real Time Monitoring", "Sensor Integration"],
       tags: ["Internet of Things (IoT)", "Embedded Systems", "Real-Time Monitoring", "Smartphone Control", "Sensor Integration"],
     }
   ],
@@ -143,7 +143,6 @@ export default function Home() {
                   </p>
                 </div>
                 <div>
-                  {/* Conditional Rendering untuk Stats agar layout tetap rapat jika stats kosong */}
                   {p.stats && p.stats.length > 0 && (
                     <div className="flex flex-wrap gap-2 mb-4">
                       {p.stats.map((s) => (
