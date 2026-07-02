@@ -2,19 +2,25 @@
 
 import React, { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
-import CVModal from "@/components/CVModal";
-import ProjectModal, { ProjectData } from "@/components/ProjectModal";
+import dynamic from "next/dynamic";
+import { ProjectData } from "@/components/ProjectModal";
+
+// Lazy loading modal untuk mengurangi Total Blocking Time (TBT)
+const CVModal = dynamic(() => import("@/components/CVModal"), { ssr: false });
+const ProjectModal = dynamic(() => import("@/components/ProjectModal"), {
+  ssr: false,
+});
 
 const PORTFOLIO_DATA = {
   hero: {
     name: "Wildan Ibransyah",
-    role: "Mechatronics Engineer • Industrial Automation • IoT • Computer Vision",
+    role: "Lulusan Mekatronika yang mengembangkan solusi berbasis computer vision, IoT, dan otomasi industri melalui implementasi deteksi objek real-time dan integrasi panel industri.",
     location: "Jember, Indonesia",
     image: "/profile.jpg",
     availability: "Open to work",
   },
   summary: [
-    "Fresh Graduate D-IV Teknologi Rekayasa Mekatronika  dengan fokus pada Industrial Automation, Internet of Things (IoT), dan Computer Vision. Berpengalaman dalam pengembangan sistem monitoring dan kontrol berbasis IoT, integrasi perangkat keras, serta penerapan computer vision untuk object detection.",
+    "Saya membangun sistem yang menghubungkan hardware dan software, dari computer vision (YOLOv11n, Precision 98.7%) di atas Raspberry Pi, sampai wiring panel dan pemrograman PLC/HMI di lini produksi nyata. Fokus saya ada pada otomasi industri yang jalan di lapangan.",
     "Beberapa proyek yang telah saya kerjakan antara lain sistem deteksi kondisi fisik buah kakao berbasis computer vision untuk klasifikasi otomatis, serta prototype inkubator IoT dengan monitoring suhu dan kelembaban secara real-time melalui smartphone.",
     "Selain itu, saya memiliki pengalaman dalam wiring panel, instalasi sistem kontrol, fabrikasi komponen mekanik, serta observasi sistem industri secara langsung. Saat ini, saya terbuka untuk peluang magang maupun kerja di bidang Industrial Automation, IoT Engineer, dan Computer Vision.",
   ],
@@ -55,7 +61,7 @@ const PORTFOLIO_DATA = {
   ],
   projects: [
     {
-      title: "Cacao Fruit Sorting System",
+      title: "Cacao Fruit Sorting System — YOLOv11n on Raspberry Pi 5",
       desc: "YOLOv11n di Raspberry Pi 5 untuk deteksi dan sortasi buah kakao berdasarkan kondisi fisik.",
       fullDesc:
         "Tugas akhir ini berfokus pada pembangunan sistem sortasi buah kakao otomatis berbasis computer vision.\n\nDataset diproses dan dilatih menggunakan Roboflow dan model YOLOv11n, kemudian dideploy ke Raspberry Pi 5 untuk inferensi real-time. Kamera menangkap kondisi fisik buah di atas konveyor, model mengklasifikasikan kualitas, lalu sistem aktuasi memisahkan hasil sortasi secara otomatis.\n\nKontribusi saya mencakup pelatihan model, deployment embedded, integrasi GUI, komunikasi sistem, dan pengujian performa.",
@@ -69,6 +75,8 @@ const PORTFOLIO_DATA = {
         "/projects/democ5.jpg",
       ],
       githubUrl: "https://github.com/wilskuyyy",
+      liveUrl: "https://youtube.com", // Tambahkan URL demo live jika ada
+      isConfidential: false,
       stats: [
         "Precision 0.9869",
         "Recall 0.9907",
@@ -86,7 +94,7 @@ const PORTFOLIO_DATA = {
       ],
     },
     {
-      title: "Regional Dam Telemetry & Control",
+      title: "Real-Time Dam Gate Monitoring & Control (IoT/RS-485)",
       desc: "Sistem kontrol dan monitoring pintu air bendungan daerah untuk mengatasi kendala geografis.",
       fullDesc:
         "Proyek ini berfokus pada instrumentasi dan otomasi untuk infrastruktur vital daerah. Tantangan utamanya adalah jarak geografis antara bendungan fisik dan pos kendali.\n\nSolusi yang dibangun menggunakan sistem telemetri untuk kontrol pintu air dan pemantauan sensor elevasi air secara lebih efisien, terukur, dan responsif. Saya berkontribusi pada wiring, integrasi perangkat, observasi lapangan, dan validasi sistem.",
@@ -100,6 +108,7 @@ const PORTFOLIO_DATA = {
         "/projects/democ10.jpg",
         "/projects/democ11.jpg",
       ],
+      isConfidential: true,
       stats: ["Remote Monitoring", "Sensor Integration"],
       tags: [
         "Industrial Automation",
@@ -117,6 +126,7 @@ const PORTFOLIO_DATA = {
       role: "HMI Designer",
       year: "2025",
       images: ["/projects/democ12.jpg", "/projects/democ13.jpg"],
+      isConfidential: true,
       stats: ["Interface Redesign", "Usability Improvement"],
       tags: [
         "HMI",
@@ -138,6 +148,7 @@ const PORTFOLIO_DATA = {
         "/projects/democ14.jpg",
       ],
       githubUrl: "https://github.com/wilskuyyy",
+      isConfidential: false,
       stats: ["Real-Time Monitoring", "Sensor Integration"],
       tags: [
         "IoT",
@@ -147,7 +158,7 @@ const PORTFOLIO_DATA = {
         "Monitoring",
       ],
     },
-  ] as ProjectData[],
+  ],
   skills: [
     "Python",
     "Computer Vision (YOLO)",
@@ -172,9 +183,7 @@ const PORTFOLIO_DATA = {
 type ThemeMode = "light" | "dark";
 
 export default function Home() {
-  const [selectedProject, setSelectedProject] = useState<ProjectData | null>(
-    null
-  );
+  const [selectedProject, setSelectedProject] = useState<any | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isEmailCopied, setIsEmailCopied] = useState(false);
   const [isCVModalOpen, setIsCVModalOpen] = useState(false);
@@ -262,7 +271,6 @@ export default function Home() {
         project={selectedProject}
         onClose={() => setSelectedProject(null)}
       />
-
       <CVModal open={isCVModalOpen} onClose={() => setIsCVModalOpen(false)} />
 
       <main id="main-content" className="min-h-screen">
@@ -283,7 +291,6 @@ export default function Home() {
               <div className="bg-text text-bg group-focus-visible:ring-primary flex h-9 w-9 items-center justify-center rounded-xl transition-transform group-hover:scale-105 group-focus-visible:ring-2 group-focus-visible:ring-offset-2">
                 <span className="text-sm font-black tracking-wider">WI</span>
               </div>
-              <span className="group-hover:text-primary hidden text-base transition-colors sm:block"></span>
             </a>
 
             <div className="hidden items-center gap-1 md:flex">
@@ -306,7 +313,8 @@ export default function Home() {
               })}
             </div>
 
-            <div className="flex items-center gap-2.5">
+            {/* Gap diperlebar untuk Mobile */}
+            <div className="flex items-center gap-4 md:gap-2.5">
               {mounted && (
                 <button
                   type="button"
@@ -442,7 +450,7 @@ export default function Home() {
                 {PORTFOLIO_DATA.hero.name}
               </h1>
 
-              <p className="text-primary mt-3 text-sm font-bold sm:text-base lg:text-lg">
+              <p className="text-primary mt-3 text-sm leading-relaxed font-bold sm:text-base lg:text-lg">
                 {PORTFOLIO_DATA.hero.role}
               </p>
 
@@ -486,6 +494,7 @@ export default function Home() {
                 </button>
               </div>
 
+              {/* Subtext Hero Baru */}
               <div className="text-faint mt-6 flex flex-wrap items-center justify-center gap-3 text-xs font-medium md:justify-start">
                 <span className="inline-flex items-center gap-1.5">
                   <svg
@@ -502,37 +511,25 @@ export default function Home() {
                   {PORTFOLIO_DATA.hero.location}
                 </span>
                 <span className="bg-border hidden h-1 w-1 rounded-full sm:block" />
-                <span className="inline-flex items-center gap-1.5">
-                  <svg
-                    width="15"
-                    height="15"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.5"
-                  >
-                    <path d="M12 20h9" />
-                    <path d="M12 4h9" />
-                    <path d="M4 9h16" />
-                    <path d="M4 15h16" />
-                  </svg>
-                  Software-facing Mechatronics
+                <span className="text-text inline-flex items-center gap-1.5 font-bold">
+                  Fresh Graduate • IPK 3.72 • Siap kerja Juli 2026
                 </span>
               </div>
             </div>
 
-            <div className="w-full max-w-60 shrink-0 md:max-w-70">
+            {/* Foto profil diperkecil di mobile (max-w-[200px]) agar informasi cepat terbaca */}
+            <div className="w-full max-w-50 shrink-0 sm:max-w-60 md:max-w-70">
               <div className="group relative">
                 <div className="border-ui bg-surface-2 absolute inset-0 translate-x-3 translate-y-3 rounded-2xl border transition-transform group-hover:translate-x-1.5 group-hover:translate-y-1.5" />
-                <div className="border-ui bg-surface relative overflow-hidden rounded-2xl border shadow-(--shadow-strong)">
-                  <div className="relative aspect-9/16 w-full">
+                <div className="border-ui bg-surface shadow-strong relative overflow-hidden rounded-2xl border">
+                  <div className="relative aspect-3/4 w-full">
                     <Image
                       src={PORTFOLIO_DATA.hero.image}
                       alt={`Foto profil ${PORTFOLIO_DATA.hero.name}`}
                       fill
                       className="object-cover transition-transform duration-700 group-hover:scale-105"
                       priority
-                      sizes="(max-width: 768px) 240px, 280px"
+                      sizes="(max-width: 768px) 200px, 280px"
                     />
                   </div>
                 </div>
@@ -553,30 +550,6 @@ export default function Home() {
               <div className="text-muted mt-6 space-y-4 text-sm leading-snug md:text-base">
                 {PORTFOLIO_DATA.summary.map((paragraph, index) => (
                   <p key={index}>{paragraph}</p>
-                ))}
-              </div>
-              <div className="mt-6 grid gap-3">
-                {PORTFOLIO_DATA.highlights.map((item, idx) => (
-                  <div
-                    key={idx}
-                    className="surface-card text-text flex items-start gap-3 rounded-xl p-4 text-sm leading-snug font-medium"
-                  >
-                    <span className="bg-primary-soft text-primary mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full">
-                      <svg
-                        width="12"
-                        height="12"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="3"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path d="M20 6L9 17l-5-5" />
-                      </svg>
-                    </span>
-                    {item}
-                  </div>
                 ))}
               </div>
             </div>
@@ -680,29 +653,37 @@ export default function Home() {
             </div>
           </section>
 
-          {/* Project */}
+          {/* Project - Mengubah struktur HTML Card agar tidak ada link/button nesting */}
           <section id="project" className="section-anchor mt-20">
             <SectionHeading eyebrow="Selected Work" title="Project Unggulan." />
             <div className="mt-6 grid gap-5 sm:grid-cols-2">
               {PORTFOLIO_DATA.projects.map((project) => (
-                <button
+                <div
                   key={project.title}
-                  type="button"
-                  onClick={() => setSelectedProject(project)}
-                  className="surface-card group focus-visible:ring-primary flex min-h-80 flex-col justify-between rounded-2xl p-5 text-left outline-none hover:-translate-y-1 hover:shadow-lg focus-visible:ring-2 md:p-6"
-                  aria-label={`Lihat detail project ${project.title}`}
+                  className="surface-card group flex min-h-80 flex-col justify-between rounded-2xl p-5 transition-all hover:-translate-y-1 hover:shadow-lg md:p-6"
                 >
+                  {/* Bagian atas (Informasi) */}
                   <div>
-                    <div className="bg-primary-soft text-primary mb-4 inline-flex rounded-full px-2.5 py-1 text-[10px] font-bold tracking-widest uppercase">
-                      {project.year}
+                    <div className="mb-4 flex items-center justify-between">
+                      <div className="bg-primary-soft text-primary inline-flex rounded-full px-2.5 py-1 text-[10px] font-bold tracking-widest uppercase">
+                        {project.year}
+                      </div>
+                      {/* Badge rahasia/internal */}
+                      {project.isConfidential && (
+                        <div className="border-border bg-surface-2 text-faint inline-flex rounded-full border px-2 py-0.5 text-[9px] font-bold uppercase">
+                          Confidential / Internal
+                        </div>
+                      )}
                     </div>
-                    <h3 className="group-hover:text-primary text-xl leading-tight font-bold">
+                    <h3 className="text-xl leading-tight font-bold">
                       {project.title}
                     </h3>
                     <p className="text-muted mt-3 line-clamp-3 text-sm leading-snug">
                       {project.desc}
                     </p>
                   </div>
+
+                  {/* Bagian Bawah (Tags & Tombol CTA) */}
                   <div className="border-border mt-6 border-t pt-4">
                     <div className="mb-4 flex flex-wrap gap-1.5">
                       {project.tags.slice(0, 4).map((tag) => (
@@ -719,24 +700,56 @@ export default function Home() {
                         </span>
                       )}
                     </div>
-                    <div className="text-primary inline-flex items-center gap-1.5 text-xs font-bold transition-transform group-hover:translate-x-1.5">
-                      <span>Lihat detail proyek</span>
-                      <svg
-                        width="14"
-                        height="14"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
+
+                    {/* Conditional CTA */}
+                    <div className="flex flex-col gap-2 sm:flex-row">
+                      <button
+                        type="button"
+                        onClick={() => setSelectedProject(project)}
+                        className="text-primary hover:bg-primary-soft border-primary/20 inline-flex w-full items-center justify-center gap-1.5 rounded-lg border px-3 py-2 text-xs font-bold transition-colors sm:w-auto"
                       >
-                        <path d="M5 12h14" />
-                        <path d="M12 5l7 7-7 7" />
-                      </svg>
+                        {project.isConfidential
+                          ? "Lihat Ringkasan"
+                          : "Lihat Detail"}
+                        <svg
+                          width="14"
+                          height="14"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="M5 12h14" />
+                          <path d="M12 5l7 7-7 7" />
+                        </svg>
+                      </button>
+
+                      {project.githubUrl && (
+                        <a
+                          href={project.githubUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-text hover:bg-surface-2 border-border inline-flex w-full items-center justify-center gap-1.5 rounded-lg border px-3 py-2 text-xs font-bold transition-colors sm:w-auto"
+                        >
+                          GitHub
+                        </a>
+                      )}
+
+                      {project.liveUrl && (
+                        <a
+                          href={project.liveUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-success hover:bg-success-soft border-success/20 inline-flex w-full items-center justify-center gap-1.5 rounded-lg border px-3 py-2 text-xs font-bold transition-colors sm:w-auto"
+                        >
+                          Live Demo
+                        </a>
+                      )}
                     </div>
                   </div>
-                </button>
+                </div>
               ))}
             </div>
           </section>
@@ -803,18 +816,6 @@ export default function Home() {
                     target="_blank"
                     className="border-border bg-surface hover:border-primary inline-flex w-full items-center justify-center gap-2 rounded-xl border-2 px-6 py-2.5 text-sm font-bold sm:w-auto"
                   >
-                    <svg
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                    >
-                      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-                      <rect x="2" y="9" width="4" height="12" />
-                      <circle cx="4" cy="4" r="2" />
-                    </svg>
                     LinkedIn
                   </a>
                   <a
@@ -822,16 +823,6 @@ export default function Home() {
                     target="_blank"
                     className="border-border bg-surface hover:border-text inline-flex w-full items-center justify-center gap-2 rounded-xl border-2 px-6 py-2.5 text-sm font-bold sm:w-auto"
                   >
-                    <svg
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                    >
-                      <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
-                    </svg>
                     GitHub
                   </a>
                 </div>

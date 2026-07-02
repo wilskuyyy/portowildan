@@ -13,9 +13,26 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Wildan Ibransyah | Mechatronics & Software Portfolio",
+  title: "Wildan Ibransyah | Portfolio",
   description:
-    "Portfolio Wildan Ibransyah — Industrial Automation, IoT, Embedded Systems, and Computer Vision Engineer.",
+    "Mechatronics Engineer — Industrial Automation, IoT, Computer Vision",
+  openGraph: {
+    title: "Wildan Ibransyah | Portfolio",
+    description:
+      "Mechatronics Engineer yang membangun sistem CV & IoT dari nol",
+    url: "https://www.portowildan.web.id", // Ganti dengan domain aslimu jika berbeda
+    siteName: "Wildan Ibransyah Portfolio",
+    images: [
+      {
+        url: "/og-image.png", // Pastikan file ini ada di folder public/
+        width: 1200,
+        height: 630,
+        alt: "Wildan Ibransyah Portfolio Preview",
+      },
+    ],
+    locale: "id_ID",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
@@ -24,7 +41,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`} suppressHydrationWarning>
+    <html
+      lang="id"
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      suppressHydrationWarning
+    >
       <head>
         <script
           dangerouslySetInnerHTML={{
@@ -41,6 +62,23 @@ export default function RootLayout({
                 } catch (e) {}
               })();
             `,
+          }}
+        />
+        {/* JSON-LD Person Schema untuk SEO */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              name: "Wildan Ibransyah",
+              jobTitle: "Mechatronics Engineer",
+              url: "https://www.portowildan.web.id", // Sesuaikan domain
+              sameAs: [
+                "https://www.linkedin.com/in/wildanibransyah/",
+                "https://github.com/wilskuyyy",
+              ],
+            }),
           }}
         />
       </head>
