@@ -1,21 +1,230 @@
 @import "tailwindcss";
 
-/* Mendefinisikan warna custom menggunakan @theme bawaan Tailwind v4 */
 @theme {
-  --color-primary: #2563EB;
+  --color-primary: #01696f;
+  --color-primary-hover: #0c4e54;
+  --color-primary-soft: #e5f4f3;
+
+  --color-bg: #f5f4f0;
+  /* Lebih hangat, beige/grey tipis ala studio */
+  --color-surface: #ffffff;
+  --color-surface-2: #efede7;
+  --color-border: #e6e4dc;
+  /* Border diperhalus biar nggak kaku */
+
+  --color-text: #1a1a1a;
+  --color-text-muted: #666666;
+  --color-text-faint: #999999;
+
+  --color-success: #2f7a38;
+  --color-success-soft: #e2f3e5;
+
+  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.04);
+  --shadow-strong: 0 20px 40px rgba(0, 0, 0, 0.06);
+}
+
+:root {
+  color-scheme: light;
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+
+  --color-primary: #59a8b0;
+  --color-primary-hover: #7ebac0;
+  --color-primary-soft: #1a2a2b;
+
+  --color-bg: #121212;
+  --color-surface: #1a1a1a;
+  --color-surface-2: #242424;
+  --color-border: #2e2e2e;
+  /* Border dark mode diperhalus */
+
+  --color-text: #f5f5f5;
+  --color-text-muted: #a3a3a3;
+  --color-text-faint: #737373;
+
+  --color-success: #72c37b;
+  --color-success-soft: #1a2f20;
+
+  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.3);
+  --shadow-strong: 0 20px 40px rgba(0, 0, 0, 0.5);
 }
 
 html {
   scroll-behavior: smooth;
 }
 
-/* Menggunakan CSS variables bawaan Tailwind v4 untuk warna selection */
-::selection {
-  background-color: var(--color-blue-100);
-  color: var(--color-blue-900);
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  overflow-x: hidden;
 }
 
-body {
-  background-color: var(--color-white);
-  color: var(--color-gray-900);
+::selection {
+  background: color-mix(in srgb, var(--color-primary) 20%, transparent);
+  color: var(--color-text);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a,
+button,
+input,
+textarea,
+select {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--color-primary);
+  color: white;
+  padding: 8px;
+  z-index: 100;
+  transition: top 0.2s;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+.section-anchor {
+  scroll-margin-top: 5rem;
+}
+
+.surface-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-soft);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.hero-gradient {
+  background:
+    radial-gradient(
+      circle at top left,
+      color-mix(in srgb, var(--color-primary) 6%, transparent),
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at bottom right,
+      color-mix(in srgb, var(--color-primary) 4%, transparent),
+      transparent 40%
+    );
+}
+
+.text-muted {
+  color: var(--color-text-muted);
+}
+
+.text-faint {
+  color: var(--color-text-faint);
+}
+
+.text-primary {
+  color: var(--color-primary);
+}
+
+.bg-primary-ui {
+  background: var(--color-primary);
+}
+
+.bg-primary-soft {
+  background: var(--color-primary-soft);
+}
+
+.border-ui {
+  border-color: var(--color-border);
+}
+
+.bg-surface {
+  background: var(--color-surface);
+}
+
+.bg-surface-2 {
+  background: var(--color-surface-2);
+}
+
+.glass-nav {
+  background: color-mix(in srgb, var(--color-bg) 85%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.grid-auto-fit {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-faint);
+}
+
+.theme-toggle-icon-sun,
+html[data-theme="dark"] .theme-toggle-icon-moon {
+  display: none;
+}
+
+html[data-theme="dark"] .theme-toggle-icon-sun {
+  display: block;
+}
+
+html:not([data-theme="dark"]) .theme-toggle-icon-moon {
+  display: block;
+}
+
+@keyframes fadeInScale {
+  0% {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-modal {
+  animation: fadeInScale 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
 }

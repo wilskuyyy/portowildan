@@ -13,8 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Wildan Ibransyah | Portfolio",
-  description: "Mechatronics Engineer — Industrial Automation, IoT, Computer Vision",
+  title: "Wildan Ibransyah | Mechatronics & Software Portfolio",
+  description:
+    "Portfolio Wildan Ibransyah — Industrial Automation, IoT, Embedded Systems, and Computer Vision Engineer.",
 };
 
 export default function RootLayout({
@@ -23,11 +24,32 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html lang="id" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`} suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var localTheme = window.localStorage.getItem('theme');
+                  var sysTheme = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                  if (localTheme === 'dark' || (!localTheme && sysTheme)) {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                  } else {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                  }
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
+      </head>
+      <body className="min-h-full font-sans">
+        <a href="#main-content" className="skip-link">
+          Lewati ke konten utama
+        </a>
+        {children}
+      </body>
     </html>
   );
 }
